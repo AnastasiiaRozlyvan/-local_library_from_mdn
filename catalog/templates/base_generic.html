@@ -22,10 +22,21 @@
    {% else %}
      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
    {% endif %}
+
   </ul>
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'books' %}">All books</a></li>
-          <li><a href="">All authors</a></li>
+          <li><a href="{% url 'authors' %}">All authors</a></li>
+   {% if user.is_staff %}
+   <hr />
+   <ul class="sidebar-nav">
+   <li>Staff</li>
+   {% if perms.catalog.can_mark_returned %}
+   <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
+   {% endif %}
+   </ul>
+
+    {% endif %}
         </ul>
      {% endblock %}
       </div>
